@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.route.js";
+import messageRoutes from "./routes/message.route.js";
 import { connectDB } from "./lib/db.js";
 
 dotenv.config();
@@ -14,7 +15,11 @@ app.use(express.json());
 // Cookie Parser
 app.use(cookieParser());
 
+// Authentication Routes
 app.use("/api/auth", authRoutes)
+
+// Messaging Routes
+app.use("/api/messages", messageRoutes);
 app.get("/",(req,res)=>{
     res.send(`Welcome to home page ${req.query.name}`)    
 })
