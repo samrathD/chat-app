@@ -25,16 +25,22 @@ app.use(express.json());
 // Cookie Parser
 app.use(cookieParser());
 
+console.log("in production before auth routes");
+
 // Authentication Routes
 app.use("/api/auth", authRoutes);
+
+console.log("in production after auth routes");
+
 
 // Messaging Routes
 app.use("/api/messages", messageRoutes);
 
+console.log("in production after message routes");
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
-
+  console.log("in production");
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
   });
