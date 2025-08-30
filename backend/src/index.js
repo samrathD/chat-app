@@ -33,19 +33,19 @@ app.use("/api/messages", messageRoutes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
-  //   app.get("*", (req, res) => {
-  //     res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
-  //     console.log("In production working after 'sendFile'");
-  //   });
-  const indexPath = path.join(__dirname, "../frontend/dist/index.html");
-  console.log("Sending file from:", indexPath);
+  app.get("*", (req, res) => {
+    // res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+    // console.log("In production working after 'sendFile'");
+    const indexPath = path.join(__dirname, "../frontend/dist/index.html");
+    console.log("Sending file from:", indexPath);
 
-  res.sendFile(indexPath, (err) => {
-    if (err) {
-      console.error("Error sending index.html:", err);
-    } else {
-      console.log("File sent successfully!");
-    }
+    res.sendFile(indexPath, (err) => {
+      if (err) {
+        console.error("Error sending index.html:", err);
+      } else {
+        console.log("File sent successfully!");
+      }
+    });
   });
 }
 server.listen(PORT, () => {
